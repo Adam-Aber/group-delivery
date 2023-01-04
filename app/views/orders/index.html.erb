@@ -1,0 +1,13 @@
+<div class="container">
+<strong><h1 class="text-start">Current orders</h1></strong>
+<%= link_to " + order", new_order_url , class:"btn-flat-sm-i text-decoration-none align-self-center"%>
+<div class="row flex-wrap justify-content-around ">
+    <% @orders.each do |order| %>
+        <%= link_to order_path(order) do %>
+            <div class="col-4 border border-success bg-white rounded m-2 p-2">
+                <%= render("order", order: order)  %>
+            </div>
+        <% end %>
+    <% end %>
+</div>
+</div>
