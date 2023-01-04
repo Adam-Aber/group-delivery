@@ -1,0 +1,11 @@
+<%= form_with model: @order do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :address %>
+  <%= f.text_field :address %>
+  <%= f.label :contact %>
+  <%= f.number_field :contact %>
+  <%= f.label :restaurant %>
+  <%= f.text_field :restaurant %>
+  <%= f.submit %>
+<% end %>
