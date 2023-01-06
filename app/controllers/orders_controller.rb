@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :address, :contact, :restaurant, :id)
+    params.require(:order).permit(:name, :address, :contact, :restaurant)
   end
 
 end
