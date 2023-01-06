@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root to: "pages#home"
+  root to: "orders#index"
   resources :orders
-  # get "/orders/:id", to: "orders#search", as: "search"
 end
