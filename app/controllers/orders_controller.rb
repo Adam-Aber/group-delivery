@@ -1,13 +1,13 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show ]
 
-
   def index
     @orders = Order.all
   end
 
   def show
-    @orders = Order.where(address: params[:address], restaurant: params[:restaurant])
+    order = Order.find(params[:id])
+    @orders = Order.where(address: order.address, restaurant: order.restaurant)
   end
 
   def new
