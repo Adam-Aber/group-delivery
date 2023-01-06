@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
-        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
+        format.html { redirect_to order_path(@order), notice: 'Order was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
