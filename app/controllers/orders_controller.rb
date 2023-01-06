@@ -1,13 +1,27 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show ]
+  before_action :set_order, only: %i[show]
 
   def index
     @orders = Order.all
   end
 
   def show
-    order = Order.find(params[:id])
-    @orders = Order.where(address: order.address, restaurant: order.restaurant)
+    current_order = Order.find(params[:id])
+    orders = check_location(current_order)
+    check_time(orders, current_order)
+  end
+
+  def check_location(order)
+    Order.where(address: order.address, restaurant: order.restaurant)
+  end
+
+  def check_time(orders, current_order)
+    @just_ordered = []
+    orders.each do |order|
+      difference = current_order.created_at.to_time.to_i - order.created_at.to_time.to_i
+      minutes = (difference % 3600) / 60
+      @just_ordered << order if difference >= 0 && minutes <= 10
+    end
   end
 
   def new
@@ -18,7 +32,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
-        format.html { redirect_to orders_path, notice: "Order was successfully created." }
+        format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -34,5 +48,4 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:name, :address, :contact, :restaurant)
   end
-
 end
